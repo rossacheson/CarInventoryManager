@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+Ross Acheson
+4/8/16
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="dealership.css">
+        <script src="dealership.js"></script>
+        <title>Car Dealership</title>
+    </head>
+    <body onload="loadInventoryList()">
+        <h3>Set Markup</h3>
+        <form>
+            Percent Markup: <input id="markupInput" type="text" value="0.05"><br>
+            <input type="button" class = "btn-info" value="Display List" onclick="loadInventoryList()">
+        </form>
+        <hr>
+        <h2>Inventory List</h2>
+        <p id="markupMessage"></p>
+        <table id="inventoryList" class="table-striped"></table>
+        <br>
+        <table id="inventoryTotals" class="table-striped"></table>
+    </body>
+</html>
