@@ -15,13 +15,18 @@ Ross Acheson
         <h3>Set Markup</h3>
         <form>
             Percent Markup: <input id="markupInput" type="text" value="0.05"><br>
-            <input type="button" class = "btn-info" value="Display List" onclick="loadInventoryList()">
+            <input type="button" class = "btn-info" value="Change Markup" onclick="loadInventoryList()">
         </form>
         <hr>
         <h2>Inventory List</h2>
         <p id="markupMessage"></p>
-        <table id="inventoryList" class="table-bordered table-hover"></table>
-        <br>
-        <table id="inventoryTotals" class="table-bordered table-hover"></table>
+        <div class="row">
+            <div class="col-md-9">
+            <table id="inventoryList" class="table-bordered table-hover centerBlock"></table>
+            </div>    
+            <div class="col-md-3">
+            <table id="inventoryTotals" class="table-bordered table-hover centerBlock"></table>
+            </div>  
+        </div>
     </body>
 </html>

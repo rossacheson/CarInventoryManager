@@ -60,7 +60,7 @@ function loadInventoryList() {
     for (i = 0; i < carsArray.length; i++) {
         result += "<tr><td>" + carsArray[i].make + "</td><td>" + carsArray[i].model + "</td><td>"
                 + carsArray[i].year + "</td><td>" + carsArray[i].type + "</td><td>"
-                + displayFeatures(carsArray[i]) + "</td><td>" + currency(getSalesPrice(carsArray[i]))
+                + displayFeatures(carsArray[i]) + "</td><td>$" + currency(getSalesPrice(carsArray[i]))
                 + "</td><td><a href='javascript:deleteCar(" + i + ")'>delete</a></td></tr>";
     }
     document.getElementById("inventoryList").innerHTML = result;
@@ -79,7 +79,7 @@ function loadTotals() {
         totSalesPot += salesPrice;
         totProfitPot += profit;
     }
-    result += "<tr><td>" + totSalesPot + "</td><td>" + totProfitPot + "</td></tr>";
+    result += "<tr><td>$" + currency(totSalesPot) + "</td><td>$" + currency(totProfitPot) + "</td></tr>";
     document.getElementById("inventoryTotals").innerHTML = result;
 }
 

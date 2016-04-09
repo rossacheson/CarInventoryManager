@@ -5,3 +5,7 @@ body {
 td, th {
     padding:4px;
 }
+
+.centerBlock {
+    margin: 5px auto;
+}
