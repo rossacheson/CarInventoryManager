@@ -3,43 +3,7 @@
  * 4/8/16
  */
 
-var markup;
-
-function loadInventoryList() {
-    markup = document.getElementById("markupInput").value;
-    document.getElementById("markupMessage").innerHTML = "Retail Prices are shown at a markup of: " + markup;
-    var result = "<tr><th>Make</th><th>Model</th><th>Year</th><th>Type</th><th>Features</th><th>Calculated Sales Price</th></tr>";
-    for (i = 0; i < carsArray.length; i++) {
-        result += displayCar(carsArray[i]);
-    }
-    document.getElementById("inventoryList").innerHTML = result;
-    loadTotals();
-}
-
-function loadTotals() {
-    var result = "<tr><th>Total Sales Potential</th><th>Total Profit Potential</th></tr>";
-    var totSalesPot = 0;
-    var totProfitPot = 0;
-    var salesPrice;
-    var profit;
-    for (i = 0; i < carsArray.length; i++) {
-        salesPrice = getSalesPrice(carsArray[i]);
-        profit = salesPrice - carsArray[i].carPrice;
-        totSalesPot += salesPrice;
-        totProfitPot += profit;
-    }
-    result += "<tr><td>" + totSalesPot + "</td><td>" + totProfitPot + "</td></tr>";
-    document.getElementById("inventoryTotals").innerHTML = result;
-}
-
-function displayCar(car) {
-    var row = "<tr><td>" + car.make + "</td><td>" + car.model + "</td><td>"
-            + car.year + "</td><td>" + car.type + "</td><td>" 
-            + displayFeatures(car) + "</td><td>" + currency(getSalesPrice(car))
-            + "</td></tr>";
-    return row;
-}
-
+//define car object
 function car(make, model, year, type, baseprice, features) {
     //take in input
     this.make = make;
@@ -62,19 +26,9 @@ function car(make, model, year, type, baseprice, features) {
         this.featuresPrice += 1500;
     //sum
     this.carPrice = this.basePrice + this.featuresPrice;
-
 }
 
-var featuresExample = {doors: "2-door", fuel: "Gas", transmission: "Automatic", interior: "Cloth"};
-
-function features(doors, fuel, transmission, interior) {
-    this.doors = doors;
-    this.fuel = fuel;
-    this.transmission = transmission;
-    this.interior = interior;
-}
-
-//some feature sets
+//define some feature sets
 var ftSetCheapo = new features("2-door", "Gas", "Manual", "Cloth");
 var ftSetBasic = new features("4-door", "Gas", "Automatic", "Cloth");
 var ftSetHybrid = new features("4-door", "Hybrid", "Automatic", "Cloth");
@@ -95,6 +49,60 @@ carsArray[7] = new car("Ford", "F-150", 2016, "Truck", 24500, ftSetCheapo);
 carsArray[8] = new car("Lincoln", "MKZ", 2014, "Car", 34500, ftSetFancy);
 carsArray[9] = new car("Lincoln", "Navigator", 2014, "SUV", 56000, ftSetFancy);
 
+//global variable from form input
+var markup;
+
+//main function to display inventory table
+function loadInventoryList() {
+    markup = document.getElementById("markupInput").value;
+    document.getElementById("markupMessage").innerHTML = "Retail Prices are shown at a markup of: " + markup;
+    var result = "<tr><th>Make</th><th>Model</th><th>Year</th><th>Type</th><th>Features</th><th>Calculated Sales Price</th><th>Delete?</tr>";
+    for (i = 0; i < carsArray.length; i++) {
+        result += "<tr><td>" + carsArray[i].make + "</td><td>" + carsArray[i].model + "</td><td>"
+                + carsArray[i].year + "</td><td>" + carsArray[i].type + "</td><td>"
+                + displayFeatures(carsArray[i]) + "</td><td>" + currency(getSalesPrice(carsArray[i]))
+                + "</td><td><a href='javascript:deleteCar(" + i + ")'>delete</a></td></tr>";
+    }
+    document.getElementById("inventoryList").innerHTML = result;
+    loadTotals();
+}
+
+function loadTotals() {
+    var result = "<tr><th>Total Potential Sales</th><th>Total Potential Profit</th></tr>";
+    var totSalesPot = 0;
+    var totProfitPot = 0;
+    var salesPrice;
+    var profit;
+    for (i = 0; i < carsArray.length; i++) {
+        salesPrice = getSalesPrice(carsArray[i]);
+        profit = salesPrice - carsArray[i].carPrice;
+        totSalesPot += salesPrice;
+        totProfitPot += profit;
+    }
+    result += "<tr><td>" + totSalesPot + "</td><td>" + totProfitPot + "</td></tr>";
+    document.getElementById("inventoryTotals").innerHTML = result;
+}
+
+function displayCar(car) {
+    var row = "<tr><td>" + car.make + "</td><td>" + car.model + "</td><td>"
+            + car.year + "</td><td>" + car.type + "</td><td>"
+            + displayFeatures(car) + "</td><td>" + currency(getSalesPrice(car))
+            + "</td><td><a href='javascript:deleteCar('hello')'>delete</a></td></tr>";
+    return row;
+}
+
+function deleteCar(index) {
+    carsArray.splice(index, 1);
+    loadInventoryList();
+}
+
+function features(doors, fuel, transmission, interior) {
+    this.doors = doors;
+    this.fuel = fuel;
+    this.transmission = transmission;
+    this.interior = interior;
+}
+
 
 function displayFeatures(car) {
     return car.features.doors + ", " + car.features.fuel + ", " +
@@ -106,4 +114,7 @@ function getSalesPrice(car) {
 }
 
 //from https://css-tricks.com/snippets/javascript/format-currency/
-function currency(n){n=parseFloat(n);return isNaN(n)?false:n.toFixed(2);}
+function currency(n) {
+    n = parseFloat(n);
+    return isNaN(n) ? false : n.toFixed(2);
+}
