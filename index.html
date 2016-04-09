@@ -6,6 +6,7 @@ Ross Acheson
 <html>
     <head>
         <meta charset="UTF-8">
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="dealerstyle.css">
         <script src="dealership.js"></script>
@@ -22,11 +23,70 @@ Ross Acheson
         <p id="markupMessage"></p>
         <div class="row">
             <div class="col-md-9">
-            <table id="inventoryList" class="table-bordered table-hover centerBlock"></table>
+                <table id="inventoryList" class="table-bordered table-hover centerBlock"></table>
             </div>    
             <div class="col-md-3">
-            <table id="inventoryTotals" class="table-bordered table-hover centerBlock"></table>
-            </div>  
+                <h4 id="analysis">Analysis</h4>
+                <table id="inventoryTotals" class="table-bordered table-hover centerBlock"></table>
+            </div>
         </div>
+        <hr>
+        <h2>Add Inventory</h2>
+        <form name="add" action="">
+            <fieldset>
+                <label for="model">Make and Model: </label><select name="model" required>
+                    <option disabled selected value> -- select an option -- </option>
+                    <optgroup label="Dodge">
+                        <option value="Avenger">Avenger</option>
+                        <option value="Dart">Dart</option>
+                        <option value="Durango">Durango</option>
+                    </optgroup>
+                    <optgroup label="Ford">
+                        <option value="Focus">Focus</option>
+                        <option value="Fusion">Fusion</option>
+                        <option value="F-150">F-150</option>
+                    </optgroup>
+                    <optgroup label="Lincoln">
+                        <option value="MKZ">MKZ</option>
+                        <option value="Navigator">Navigator</option>
+                    </optgroup>
+                </select><br>
+                <label for="year">Year: </label><select name="year" required>
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                    <option value="2012">2012</option>
+                    <option value="2011">2011</option>
+                </select><br>
+                <h4>Features:</h4>
+                <div id="selectFeatures" class="row">
+                    <div class ="col-xs-6 col-sm-4 col-md-3">
+                        <label for="doors">Doors: </label><br>
+                        <input type="radio" name ="doors" value="2-door" required>2-door<br>
+                        <input type="radio" name ="doors" value="4-door">4-door<br>
+                    </div>
+                    <div class ="col-xs-6 col-sm-4 col-md-3">
+                        <label for="Fuel">Fuel: </label><br>
+                        <input type="radio" name ="fuel" value="Gas" required>Gas<br>
+                        <input type="radio" name ="fuel" value="Hybrid">Hybrid<br>
+                        <input type="radio" name ="fuel" value="Electric">Electric<br>
+                    </div>
+                    <div class ="col-xs-6 col-sm-4 col-md-3">
+                        <label for="doors">Transmission: </label><br>
+                        <input type="radio" name ="transmission" value="Automatic" required>Automatic<br>
+                        <input type="radio" name ="transmission" value="Manual">Manual<br>
+                    </div>
+                    <div class ="col-xs-6 col-sm-12 col-md-3">
+                        <label for="doors">Interior: </label><br>
+                        <input type="radio" name ="interior" value="2-door" required>Cloth<br>
+                        <input type="radio" name ="interior" value="4-door">Leather<br>
+                    </div>
+                </div><br>
+                <label for="quantity">Quantity to add with this configuration: </label><input type="number" name="quantity" min="1" max="100"><br>
+                <input type="submit" class = "btn-info" value="Add To Inventory">
+            </fieldset>
+        </form>
     </body>
 </html>
