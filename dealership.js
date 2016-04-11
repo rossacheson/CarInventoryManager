@@ -1,6 +1,6 @@
 /* 
  * Ross Acheson
- * 4/8/16
+ * 4/11/16
  */
 
 //define car object
@@ -26,6 +26,17 @@ function car(make, model, year, type, baseprice, features) {
         this.featuresPrice += 1500;
     //sum
     this.carPrice = this.basePrice + this.featuresPrice;
+
+    this.display = function() {
+        var result = "<table class='table-bordered'><tr><th>Make</th>"
+                + "<th>Model</th><th>Year</th><th>Type</th><th>Features</th>"
+                + "<th>Calculated Sales Price</th>"
+                + "<tr><td>" + this.make + "</td><td>" + this.model + "</td><td>"
+                + this.year + "</td><td>" + this.type + "</td><td>"
+                + displayFeatures(this) + "</td><td>" + currency(getSalesPrice(this))
+                + "</td></tr></table>";
+        return result;
+    };
 }
 
 //define some feature sets
@@ -82,14 +93,6 @@ function loadTotals() {
     }
     result += "<tr><td>$" + currency(totSalesPot) + "</td><td>$" + currency(totProfitPot) + "</td></tr>";
     document.getElementById("inventoryTotals").innerHTML = result;
-}
-
-function displayCar(car) {
-    var row = "<tr><td>" + car.make + "</td><td>" + car.model + "</td><td>"
-            + car.year + "</td><td>" + car.type + "</td><td>"
-            + displayFeatures(car) + "</td><td>" + currency(getSalesPrice(car))
-            + "</td><td><a href='javascript:deleteCar('hello')'>delete</a></td></tr>";
-    return row;
 }
 
 function deleteCar(index) {
