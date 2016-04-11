@@ -54,6 +54,7 @@ var markup;
 
 //main function to display inventory table
 function loadInventoryList() {
+    sortCars(carsArray); //sort by make and model
     markup = document.getElementById("markupInput").value;
     document.getElementById("markupMessage").innerHTML = "Retail Prices are shown at a markup of: " + markup;
     var result = "<tr><th>Make</th><th>Model</th><th>Year</th><th>Type</th><th>Features</th><th>Calculated Sales Price</th><th>Delete?</tr>";
@@ -118,3 +119,39 @@ function currency(n) {
     n = parseFloat(n);
     return isNaN(n) ? false : n.toFixed(2);
 }
+
+//sort by make and model
+function sortCars(carsArray) {
+    carsArray.sort(function(a, b) {
+        if (a.make === b.make) {
+            return a.model.localeCompare(b.model);
+        } else {
+            return a.make.localeCompare(b.make);
+        }
+    });
+}
+
+//jQuery Ajax with PHP...
+$(document).ready(function() {
+    $('#addForm').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: "POST",
+            data: $(this).serialize(),
+            success: function(json) {
+                data = JSON.parse(json);
+                newCar = new car(data.make, data.model, data.year, data.type, data.basePrice,
+                        new features(data.doors, data.fuel, data.transmission, data.interior));
+                for (i = 0; i < data.numToAdd; i++) {
+                    carsArray.push(newCar);
+                }
+                document.getElementById("formOutput").innerHTML = "&nbsp<em>" + data.numToAdd + " vehicles added</em>";
+                loadInventoryList();
+            },
+            error: function(jXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+});

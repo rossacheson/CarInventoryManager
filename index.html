@@ -6,18 +6,14 @@ Ross Acheson
 <html>
     <head>
         <meta charset="UTF-8">
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="dealerstyle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
         <script src="dealership.js"></script>
-        <title>Car Dealership</title>
+        <title>Car Dealership Inventory Manager</title>
     </head>
     <body onload="loadInventoryList()">
-        <h3>Set Markup</h3>
-        <form>
-            Percent Markup: <input id="markupInput" type="text" value="0.05"><br>
-            <input type="button" class = "btn-info" value="Change Markup" onclick="loadInventoryList()">
-        </form>
+        <h1>Inventory Manager</h1>
         <hr>
         <h2>Inventory List</h2>
         <p id="markupMessage"></p>
@@ -25,14 +21,20 @@ Ross Acheson
             <div class="col-md-9">
                 <table id="inventoryList" class="table-bordered table-hover centerBlock"></table>
             </div>    
-            <div class="col-md-3">
-                <h4 id="analysis">Analysis</h4>
+            <div class="col-md-3" id="analysis">
+                <h3>Analysis</h3>
                 <table id="inventoryTotals" class="table-bordered table-hover centerBlock"></table>
+                <br>
+                <h4>Set Markup</h4>
+                <form>
+                    Markup: <input id="markupInput" type="text" value="0.05"><br>
+                    <input type="button" class = "btn-info" value="Change Markup" onclick="loadInventoryList()">
+                </form>
             </div>
         </div>
         <hr>
         <h2>Add Inventory</h2>
-        <form name="add" action="">
+        <form name="addForm" id="addForm" method="post" action="addInventory.php">
             <fieldset>
                 <label for="model">Make and Model: </label><select name="model" required>
                     <option disabled selected value> -- select an option -- </option>
@@ -64,28 +66,28 @@ Ross Acheson
                 <div id="selectFeatures" class="row">
                     <div class ="col-xs-6 col-sm-4 col-md-3">
                         <label for="doors">Doors: </label><br>
-                        <input type="radio" name ="doors" value="2-door" required>2-door<br>
-                        <input type="radio" name ="doors" value="4-door">4-door<br>
+                        <input type="radio" name ="doors" id="d1" value="2-door" required><label for="d1">2-door</label><br>
+                        <input type="radio" name ="doors" id="d2" value="4-door"><label for="d2">4-door</label><br>
                     </div>
                     <div class ="col-xs-6 col-sm-4 col-md-3">
                         <label for="Fuel">Fuel: </label><br>
-                        <input type="radio" name ="fuel" value="Gas" required>Gas<br>
-                        <input type="radio" name ="fuel" value="Hybrid">Hybrid<br>
-                        <input type="radio" name ="fuel" value="Electric">Electric<br>
+                        <input type="radio" name ="fuel" id="f1" value="Gas" required><label for="f1">Gas</label><br>
+                        <input type="radio" name ="fuel" id="f2" value="Hybrid"><label for="f2">Hybrid</label><br>
+                        <input type="radio" name ="fuel" id="f3" value="Electric"><label for="f3">Electric</label><br>
                     </div>
                     <div class ="col-xs-6 col-sm-4 col-md-3">
                         <label for="doors">Transmission: </label><br>
-                        <input type="radio" name ="transmission" value="Automatic" required>Automatic<br>
-                        <input type="radio" name ="transmission" value="Manual">Manual<br>
+                        <input type="radio" name ="transmission" id="t1" value="Automatic" required><label for="t1">Automatic</label><br>
+                        <input type="radio" name ="transmission" id="t2" value="Manual"><label for="t2">Manual</label><br>
                     </div>
                     <div class ="col-xs-6 col-sm-12 col-md-3">
                         <label for="doors">Interior: </label><br>
-                        <input type="radio" name ="interior" value="2-door" required>Cloth<br>
-                        <input type="radio" name ="interior" value="4-door">Leather<br>
+                        <input type="radio" name ="interior" id="i1" value="Cloth" required><label for="i1">Cloth</label><br>
+                        <input type="radio" name ="interior" id="i2" value="Leather"><label for="i2">Leather</label><br>
                     </div>
                 </div><br>
-                <label for="quantity">Quantity to add with this configuration: </label><input type="number" name="quantity" min="1" max="100"><br>
-                <input type="submit" class = "btn-info" value="Add To Inventory">
+                <label for="quantity">Quantity to add with this configuration: </label><input type="number" name="quantity" min="1" max="100" required><br>
+                <input type="submit" class = "btn-info" value="Add To Inventory"><span id="formOutput"></span>
             </fieldset>
         </form>
     </body>
