@@ -146,6 +146,7 @@ $(document).ready(function() {
                 data = JSON.parse(json);
                 newCar = new car(data.make, data.model, data.year, data.type, data.basePrice,
                         new features(data.doors, data.fuel, data.transmission, data.interior));
+                date = new Date();
                 for (i = 0; i < data.numToAdd; i++) {
                     newCar.stockNumber = date.getTime()+(i/10);
                     carsArray.push(newCar);
