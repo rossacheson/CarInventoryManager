@@ -147,6 +147,7 @@ $(document).ready(function() {
                 newCar = new car(data.make, data.model, data.year, data.type, data.basePrice,
                         new features(data.doors, data.fuel, data.transmission, data.interior));
                 for (i = 0; i < data.numToAdd; i++) {
+                    newCar.stockNumber = date.getTime()+(i/10);
                     carsArray.push(newCar);
                 }
                 document.getElementById("formOutput").innerHTML = "&nbsp<em>" + data.numToAdd + " vehicles added</em>";
